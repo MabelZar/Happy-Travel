@@ -16,7 +16,7 @@ public class UsuarioController {
     public UsuarioController(UsuarioService usuarioService){
         this.usuarioService = usuarioService;}
     
-    @PostMapping("/")
+    @PostMapping("/usuarios")
     public ResponseEntity<Object> addUsuario(@RequestBody Usuario usuario){
        return usuarioService.addUsuario(usuario);
     }    

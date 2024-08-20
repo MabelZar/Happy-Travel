@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
 public class Destino {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String titulo;
-    private String description;
+    private String descripcion;
     private String url_imagen;
     
     @ManyToOne
@@ -39,14 +39,6 @@ public class Destino {
         this.titulo = titulo;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getUrl_imagen() {
         return url_imagen;
     }
@@ -61,6 +53,14 @@ public class Destino {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }
