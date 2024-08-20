@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Windows shortcuts
+*.lnk
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
