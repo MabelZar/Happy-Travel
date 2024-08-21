@@ -21,4 +21,8 @@ public class UserService {
             userRepository.save(user);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } 
+
+        public User getUserById (int id) {
+            return userRepository.findById(id).orElse(null);
+        }
     }
