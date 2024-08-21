@@ -17,19 +17,19 @@ public class TravelController {
 
     private final UserService userService;
 
-    public TravelController(DestinationService destinationService, UserService userService){
+    public TravelController(DestinationService destinationService, UserService userService) {
         this.destinationService = destinationService;
         this.userService = userService;
     }
 
-        @PostMapping("/destinations")
-        public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
-            return destinationService.addNewDestination(destination);
-        }
+    @PostMapping("/destinations")
+    public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
+        return destinationService.addNewDestination(destination);
+    }
 
-         @PostMapping("/users")
-        public ResponseEntity<Object> addNewUser(@RequestBody User user){
+    @PostMapping("/users")
+    public ResponseEntity<Object> addNewUser(@RequestBody User user) {
         return userService.addNewUser(user);
-        }  
+    }
 
 }

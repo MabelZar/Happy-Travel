@@ -1,5 +1,6 @@
 package com.travel.travel.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,16 +16,24 @@ public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "title", length = 50, nullable = false)
     private String title;
+
+    @Column(name = "location", length = 50, nullable = false)
     private String location;
+
+    @Column(name = "description", length = 500)
     private String description;
+
+    @Column(name = "url_image", length = 255)
     private String url_image;
-    //private int id_user;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
-    
+    // Getters and setters
+
     public String getTitle() {
         return title;
     }
@@ -72,13 +81,4 @@ public class Destination {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    //public int getId_user() {
-       // return id_user;
-    //}
-
-    //public void setId_user(int id_user) {
-       // this.id_user = id_user;
-    //}
-
 }
