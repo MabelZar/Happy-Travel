@@ -20,4 +20,9 @@ public class DestinationService {
             destinationRepository.save(destination);
             return new ResponseEntity<>(destination, HttpStatus.CREATED);
         }
+
+        public ResponseEntity<Object> updateDestination(Destination destination){
+            destinationRepository.save(destination);
+            return new ResponseEntity<>("edited correctly",HttpStatus.OK);
+        }
     }

@@ -9,6 +9,8 @@ import com.travel.travel.models.Destination;
 import com.travel.travel.models.User;
 import com.travel.travel.services.DestinationService;
 import com.travel.travel.services.UserService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 public class TravelController {
@@ -25,6 +27,11 @@ public class TravelController {
         @PostMapping("/destinos")
         public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
             return destinationService.addNewDestination(destination);
+        }
+
+        @PutMapping("/destinos/update")
+        public ResponseEntity<Object> updateDestination(@RequestBody Destination destination) {
+            return destinationService.updateDestination(destination);
         }
 
          @PostMapping("/usuarios")
