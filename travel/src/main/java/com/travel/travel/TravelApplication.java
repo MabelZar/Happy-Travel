@@ -9,7 +9,7 @@ public class TravelApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TravelApplication.class, args);
-		System.out.println("Hello Word");
+		System.out.println("Hello World");
 	}
 
 }
