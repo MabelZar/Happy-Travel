@@ -16,6 +16,7 @@ public class Destination {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    private String location;
     private String description;
     private String url_image;
     //private int id_user;
@@ -62,6 +63,14 @@ public class Destination {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     //public int getId_user() {
