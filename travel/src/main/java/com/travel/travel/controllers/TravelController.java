@@ -22,12 +22,12 @@ public class TravelController {
         this.userService = userService;
     }
 
-        @PostMapping("/destinos")
+        @PostMapping("/destinations")
         public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
             return destinationService.addNewDestination(destination);
         }
 
-         @PostMapping("/usuarios")
+         @PostMapping("/users")
         public ResponseEntity<Object> addNewUser(@RequestBody User user){
         return userService.addNewUser(user);
         }  

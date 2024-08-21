@@ -18,7 +18,11 @@ public class UserService {
     }
 
         public ResponseEntity<Object> addNewUser(User user){
+            if(userRepository.existsByEmail(user.getEmail())) {
+                return new ResponseEntity<>("Este usuario ya se encuentra está registrado", HttpStatus.CREATED);
+            }
+
             userRepository.save(user);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
+            return new ResponseEntity<>("El usuario se ha registrado con exito!", HttpStatus.CREATED);
         } 
     }
