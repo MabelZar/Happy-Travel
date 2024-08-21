@@ -8,16 +8,16 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
     private String email;
     private String contraseña;
 
-    public Usuario(){}
+    public User(){}
 
     public int getId() {
         return id;

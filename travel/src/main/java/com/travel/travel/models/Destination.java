@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "destinos")
-public class Destino {
+public class Destination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Destino {
     
     @ManyToOne
     @JoinColumn(name = "id_usuario, null = false")
-    private Usuario usuario;
+    private User user;
 
     public int getId() {
         return id;
@@ -47,20 +47,20 @@ public class Destino {
         this.url_imagen = url_imagen;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
 }
