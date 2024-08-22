@@ -19,8 +19,6 @@ public class Destination {
 
     @Column(name = "title", length = 50, nullable = false)
     private String title;
-
-    @Column(name = "location", length = 50, nullable = false)
     private String location;
 
     @Column(name = "description", length = 500)
