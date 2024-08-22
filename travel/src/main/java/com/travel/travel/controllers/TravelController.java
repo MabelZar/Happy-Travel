@@ -1,6 +1,8 @@
 package com.travel.travel.controllers;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +15,7 @@ import com.travel.travel.services.UserService;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class TravelController {
@@ -33,19 +34,23 @@ public class TravelController {
         return destinationService.addNewDestination(destination);
     }
 
-        @PutMapping("/destinations/update")
-        public ResponseEntity<Object> updateDestination(@RequestBody Destination destination) {
-            return destinationService.updateDestination(destination);
-        }
+    @PutMapping("/destinations/update")
+    public ResponseEntity<Object> updateDestination(@RequestBody Destination destination) {
+        return destinationService.updateDestination(destination);
+    }
 
     @PostMapping("/users")
     public ResponseEntity<Object> addNewUser(@RequestBody User user) {
         return userService.addNewUser(user);
-        }  
-        
-        
+    }
+
     @GetMapping("/destinations")
-    public List<Destination> getLocation(){
-    return destinationService.getLocation();
-}
+    public List<Destination> getLocation() {
+        return destinationService.getLocation();
+    }
+
+    @GetMapping("/destinations/details/{id}")
+    public Optional<Destination> getDestinationDetails(@PathVariable int id) {
+        return destinationService.getDestinationDetails(id);
+    }
 }

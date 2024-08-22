@@ -49,4 +49,8 @@ public class DestinationService {
         return destinationRepository.findAll();
     }
 
+    public Optional<Destination> getDestinationDetails (int id) {
+        return destinationRepository.findById(id);
+    }
+
 }
