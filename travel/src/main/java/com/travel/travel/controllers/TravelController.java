@@ -29,7 +29,7 @@ public class TravelController {
         return destinationService.addNewDestination(destination);
     }
 
-        @PutMapping("/destinos/update")
+        @PutMapping("/destination/update")
         public ResponseEntity<Object> updateDestination(@RequestBody Destination destination) {
             return destinationService.updateDestination(destination);
         }
