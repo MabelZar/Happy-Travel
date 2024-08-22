@@ -40,13 +40,30 @@ public class DestinationService {
         return destinationRepository.findByTitleAndLocationAndUser(title, location, user);
     }
 
-    public ResponseEntity<Object> updateDestination(Destination destination){
+    public ResponseEntity<Object> updateDestination(Destination destination) {
         destinationRepository.save(destination);
-        return new ResponseEntity<>("edited correctly",HttpStatus.OK);
+        return new ResponseEntity<>("edited correctly", HttpStatus.OK);
     }
 
     public List<Destination> getLocation() {
         return destinationRepository.findAll();
+    }
+
+    public ResponseEntity<Object> deleteDestination(int id) {
+        Optional<Destination> destinationOptional = destinationRepository.findById(id);
+        {
+            if (!destinationOptional.isPresent()) {
+                return new ResponseEntity<>("Este destino no es valido", HttpStatus.CONFLICT);
+            }
+            destinationRepository.deleteById(id);
+            return new ResponseEntity<>("El usuario ha sido eliminado con exito!", HttpStatus.OK);
+
+        }
+
+    }
+
+    public Optional<Destination> getDestinationDetails(int id) {
+        return destinationRepository.findById(id);
     }
 
 }
