@@ -2,6 +2,7 @@ package com.travel.travel.services;
 
 import java.util.Optional;
 
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,10 @@ public class DestinationService {
     public ResponseEntity<Object> updateDestination(Destination destination){
         destinationRepository.save(destination);
         return new ResponseEntity<>("edited correctly",HttpStatus.OK);
+    }
+
+    public List<Destination> getLocation() {
+        return destinationRepository.findAll();
     }
 
 }

@@ -79,4 +79,8 @@ public class Destination {
     public void setLocation(String location) {
         this.location = location;
     }
+    //public void setId_user(int id_user) {
+       // this.id_user = id_user;
+    //}
+
 }
