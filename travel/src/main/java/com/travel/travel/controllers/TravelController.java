@@ -14,6 +14,7 @@ import com.travel.travel.services.DestinationService;
 import com.travel.travel.services.UserService;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -47,6 +48,11 @@ public class TravelController {
     @GetMapping("/destinations")
     public List<Destination> getLocation() {
         return destinationService.getLocation();
+    }
+
+    @DeleteMapping("/destinations/{id}")
+    public ResponseEntity<Object> deleteDestination(@PathVariable int id) {
+        return destinationService.deleteDestination(id);
     }
 
     @GetMapping("/destinations/details/{id}")
