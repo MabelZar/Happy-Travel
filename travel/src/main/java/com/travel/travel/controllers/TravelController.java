@@ -37,8 +37,8 @@ public class TravelController {
         }  
         
         
-        @GetMapping("/destinations")
-        public List<Destination> getLocation(){
-        return destinationService.getLocation();
+    @GetMapping("/destinations")
+    public List<Destination> getLocation(){
+    return destinationService.getLocation();
 }
 }
