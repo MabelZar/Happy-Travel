@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.travel.travel.models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{}
+public interface UserRepository extends JpaRepository<User, Integer>{
+    boolean existsByEmail(String email);
+}
