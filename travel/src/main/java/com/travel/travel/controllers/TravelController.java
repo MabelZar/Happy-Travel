@@ -10,6 +10,8 @@ import com.travel.travel.models.Destination;
 import com.travel.travel.models.User;
 import com.travel.travel.services.DestinationService;
 import com.travel.travel.services.UserService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,6 +32,11 @@ public class TravelController {
     public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
         return destinationService.addNewDestination(destination);
     }
+
+        @PutMapping("/destinations/update")
+        public ResponseEntity<Object> updateDestination(@RequestBody Destination destination) {
+            return destinationService.updateDestination(destination);
+        }
 
     @PostMapping("/users")
     public ResponseEntity<Object> addNewUser(@RequestBody User user) {

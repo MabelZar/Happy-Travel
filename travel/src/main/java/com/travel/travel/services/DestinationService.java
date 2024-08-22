@@ -40,6 +40,11 @@ public class DestinationService {
         return destinationRepository.findByTitleAndLocationAndUser(title, location, user);
     }
 
+    public ResponseEntity<Object> updateDestination(Destination destination){
+        destinationRepository.save(destination);
+        return new ResponseEntity<>("edited correctly",HttpStatus.OK);
+    }
+
     public List<Destination> getLocation() {
         return destinationRepository.findAll();
     }
