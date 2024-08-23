@@ -10,6 +10,7 @@ import com.travel.travel.models.User;
 
 @Repository
 public interface DestinationRepository extends JpaRepository<Destination, Integer>{
+
     Optional<Destination> findByTitleAndLocationAndUser(String title, String location, User user);
 
 }
