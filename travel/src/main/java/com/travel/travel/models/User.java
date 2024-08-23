@@ -1,7 +1,5 @@
 package com.travel.travel.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,11 +18,9 @@ public class User {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @JsonIgnore
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @JsonIgnore
     @Column(name = "password", length = 10, nullable = false)
     private String password;
 
