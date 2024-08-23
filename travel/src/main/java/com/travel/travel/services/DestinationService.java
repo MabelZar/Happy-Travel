@@ -3,10 +3,14 @@ package com.travel.travel.services;
 import java.util.Optional;
 
 import java.util.List;
+
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.travel.travel.exception.HappyTravelException;
 import com.travel.travel.models.Destination;
 import com.travel.travel.models.User;
 import com.travel.travel.repositories.DestinationRepository;
@@ -40,13 +44,30 @@ public class DestinationService {
         return destinationRepository.findByTitleAndLocationAndUser(title, location, user);
     }
 
-    public ResponseEntity<Object> updateDestination(Destination destination){
-        destinationRepository.save(destination);
-        return new ResponseEntity<>("edited correctly",HttpStatus.OK);
+    public void updateDestination(Destination destination) throws HappyTravelException {
+
+        try {
+
+            destinationRepository.save(destination);
+        
+        } catch (IllegalArgumentException | OptimisticLockingFailureException | JpaObjectRetrievalFailureException exc) {
+            throw new HappyTravelException(exc.getMessage());
+        }
+
     }
 
-    public List<Destination> getLocation() {
-        return destinationRepository.findAll();
+    // public List<Destination> getLocation() {
+    // return destinationRepository.findAll();
+    // }este es el original
+
+    public List<Destination> getLocation() throws HappyTravelException {
+
+        List<Destination> destinationList = destinationRepository.findAll();
+        if (destinationList == null || destinationList.size() == 0) {
+            throw new HappyTravelException("destination table is empty");
+        }
+        return destinationList;
+    
     }
 
 }
