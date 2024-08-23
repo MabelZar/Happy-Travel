@@ -52,11 +52,6 @@ public class TravelController {
         return userService.addNewUser(user);
     }
 
-    /* @PostMapping("/users")
-    public ResponseEntity<Object> addNewUser(@RequestBody User user) {
-        return userService.addNewUser(user);
-    } */
-
     @GetMapping("/destinations")
     public List<Destination> getLocation() throws HappyTravelException {
         return destinationService.getLocation();
