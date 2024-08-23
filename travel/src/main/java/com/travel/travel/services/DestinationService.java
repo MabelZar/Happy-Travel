@@ -47,6 +47,12 @@ public class DestinationService {
     public void updateDestination(Destination destination) throws HappyTravelException {
 
         try {
+            Optional<Destination> existingDestination = destinationRepository.findById(destination.getId());
+        
+            if (!existingDestination.isPresent()) {
+                // Si el destino no existe, lanzamos una excepción personalizada
+                throw new HappyTravelException("El destino con ID " + destination.getId() + " no fue encontrado.");
+            }
 
             destinationRepository.save(destination);
         

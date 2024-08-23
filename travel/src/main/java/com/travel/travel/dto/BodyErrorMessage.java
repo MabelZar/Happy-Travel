@@ -1,4 +1,4 @@
-package com.travel.travel.exception.dto;
+package com.travel.travel.dto;
 
 //import org.springframework.http.HttpStatus;
 
