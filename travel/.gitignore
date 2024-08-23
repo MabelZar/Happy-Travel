@@ -43,3 +43,5 @@ env.bak/
 venv.bak/
 
 src/main/resources/database.properties
+
+.DS_Store

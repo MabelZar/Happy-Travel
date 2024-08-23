@@ -65,7 +65,6 @@ public class DestinationService {
     // public List<Destination> getLocation() {
     // return destinationRepository.findAll();
     // }este es el original
-
     public List<Destination> getLocation() throws HappyTravelException {
 
         List<Destination> destinationList = destinationRepository.findAll();
