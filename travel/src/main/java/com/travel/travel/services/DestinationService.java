@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import com.travel.travel.exception.DuplicatedDestinationException;
 import com.travel.travel.exception.HappyTravelException;
+import com.travel.travel.exception.InvalidDataException;
 import com.travel.travel.models.Destination;
 import com.travel.travel.models.User;
 import com.travel.travel.repositories.DestinationRepository;
@@ -23,8 +25,18 @@ public class DestinationService {
     public DestinationService(DestinationRepository destinationRepository) {
         this.destinationRepository = destinationRepository;
     }
+    // ADDNEWDESTINATION TENDRÁ CONFLICTOS YA QUE TUVE QUE CAMBIARLA PARA MANEJAR LA EXCEPCIÓN
+    public void addNewDestination(Destination destination) {
 
-    public ResponseEntity<Object> addNewDestination(Destination destination) {
+        // Validación de que el título no sea nulo o esté vacío
+    if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
+        throw new InvalidDataException("El título del destino no puede estar vacío.");
+    }
+
+    // Validación de que la ubicación no sea nula o esté vacía (si también es requerida)
+    if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
+        throw new InvalidDataException("La ubicación del destino no puede estar vacía.");
+    }
 
         User user = destination.getUser();
 
@@ -34,10 +46,9 @@ public class DestinationService {
                 user);
 
         if (existingDestination.isPresent()) {
-            return new ResponseEntity<>("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
+            throw new DuplicatedDestinationException("El destino con el mismo título y ubicación ya existe.");
         }
         destinationRepository.save(destination);
-        return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
 
     public Optional<Destination> findByTitleAndLocationAndUser(String title, String location, User user) {
