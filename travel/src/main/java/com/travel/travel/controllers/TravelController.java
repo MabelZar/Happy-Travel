@@ -43,8 +43,12 @@ public class TravelController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<Object> addNewUser(@RequestBody User user) {
+    @PostMapping("/auth/sign_in")
+    public ResponseEntity<?> signIn(@RequestBody User user) throws HappyTravelException{
+
+        /* if (user.getEmail() == null || user.getPassword() == null) {
+            return ResponseEntity.badRequest().body("Email and password are required.");
+        } */
         return userService.addNewUser(user);
     }
 
@@ -57,4 +61,13 @@ public class TravelController {
         return destinationService.getLocation();
     }
 
+    @DeleteMapping("/destinations/{id}")
+    public ResponseEntity<Object> deleteDestination(@PathVariable int id) throws HappyTravelException{
+        return destinationService.deleteDestination(id);
+    }
+
+    @GetMapping("/destinations/details/{id}")
+    public Optional<Destination> getDestinationDetails(@PathVariable int id) {
+        return destinationService.getDestinationDetails(id);
+    }
 }

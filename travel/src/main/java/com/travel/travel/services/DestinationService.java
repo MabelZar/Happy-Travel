@@ -73,27 +73,24 @@ public class DestinationService {
 
     }
 
-    // public List<Destination> getLocation() {
-    // return destinationRepository.findAll();
-    // }este es el original
     public List<Destination> getLocation() throws HappyTravelException {
 
         List<Destination> destinationList = destinationRepository.findAll();
         if (destinationList == null || destinationList.size() == 0) {
-            throw new HappyTravelException("destination table is empty");
+            throw new HappyTravelException("La tabla destinos esta vacia" );
         }
         return destinationList;
     
     }
 
-    public ResponseEntity<Object> deleteDestination(int id) {
+    public ResponseEntity<Object> deleteDestination(int id) throws HappyTravelException {
         Optional<Destination> destinationOptional = destinationRepository.findById(id);
         {
             if (!destinationOptional.isPresent()) {
-                return new ResponseEntity<>("Este destino no es valido", HttpStatus.CONFLICT);
+                throw new HappyTravelException("Este destino no es valido", HttpStatus.CONFLICT);
             }
             destinationRepository.deleteById(id);
-            return new ResponseEntity<>("El usuario ha sido eliminado con exito!", HttpStatus.OK);
+            return new ResponseEntity<>("Ha sido eliminado con exito!", HttpStatus.OK);
 
         }
 
