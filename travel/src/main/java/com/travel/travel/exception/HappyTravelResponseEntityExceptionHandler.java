@@ -35,21 +35,11 @@ public class HappyTravelResponseEntityExceptionHandler extends ResponseEntityExc
         response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setMessage("Error de conexión con la base de datos: " + ex.getMessage()); //Por eso el mensaje se pone aquí
         
-        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(DuplicatedDestinationException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<BodyErrorMessage> handleDuplicatedDestinationException(DuplicatedDestinationException ex){
-        BodyErrorMessage message = new BodyErrorMessage();
-        message.setHttpStatus(HttpStatus.CONFLICT.value());
-        message.setMessage(ex.getMessage());
-
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class) // Error global
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<BodyErrorMessage> handleGeneralException(Exception ex){
         BodyErrorMessage message = new BodyErrorMessage();
         message.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -58,14 +48,5 @@ public class HappyTravelResponseEntityExceptionHandler extends ResponseEntityExc
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
     }
 
-    @ExceptionHandler(InvalidDataException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<BodyErrorMessage> handleInvalidDataException(InvalidDataException ex){
-        BodyErrorMessage message = new BodyErrorMessage();
-        message.setHttpStatus(HttpStatus.BAD_REQUEST.value());
-        message.setMessage(ex.getMessage());
-        
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
-    }
 }
 

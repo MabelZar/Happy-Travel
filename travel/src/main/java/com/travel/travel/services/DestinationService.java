@@ -10,9 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
-import com.travel.travel.exception.DuplicatedDestinationException;
+
 import com.travel.travel.exception.HappyTravelException;
-import com.travel.travel.exception.InvalidDataException;
 import com.travel.travel.models.Destination;
 import com.travel.travel.models.User;
 import com.travel.travel.repositories.DestinationRepository;
@@ -26,16 +25,16 @@ public class DestinationService {
         this.destinationRepository = destinationRepository;
     }
     // ADDNEWDESTINATION TENDRÁ CONFLICTOS YA QUE TUVE QUE CAMBIARLA PARA MANEJAR LA EXCEPCIÓN
-    public void addNewDestination(Destination destination) throws InvalidDataException, DuplicatedDestinationException{
+    public void addNewDestination(Destination destination) throws HappyTravelException{
 
         // Validación de que el título no sea nulo o esté vacío
     if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
-        throw new InvalidDataException("El título del destino no puede estar vacío.");
+        throw new HappyTravelException("El título del destino no puede estar vacío.", HttpStatus.BAD_REQUEST);
     }
 
     // Validación de que la ubicación no sea nula o esté vacía (si también es requerida)
     if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
-        throw new InvalidDataException("La ubicación del destino no puede estar vacía.");
+        throw new HappyTravelException("La ubicación del destino no puede estar vacía.", HttpStatus.BAD_REQUEST);
     }
 
         User user = destination.getUser();
@@ -46,7 +45,7 @@ public class DestinationService {
                 user);
 
         if (existingDestination.isPresent()) {
-            throw new DuplicatedDestinationException("El destino con el mismo título y ubicación ya existe.");
+            throw new HappyTravelException("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
         }
         destinationRepository.save(destination);
     }
@@ -96,8 +95,13 @@ public class DestinationService {
 
     }
 
-    public Optional<Destination> getDestinationDetails(int id) {
-        return destinationRepository.findById(id);
+    public Optional<Destination> getDestinationDetails(int id) throws HappyTravelException{
+        Optional<Destination> destinationDetails = destinationRepository.findById(id);
+        if(!destinationDetails.isPresent()){
+            throw new HappyTravelException("El id de destino: " + id + " no fue encontrado");
+        }
+        return destinationDetails;
+        
     }
 
 }

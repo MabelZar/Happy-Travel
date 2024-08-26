@@ -1,6 +1,7 @@
 package com.travel.travel.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,9 @@ import com.travel.travel.models.User;
 import com.travel.travel.services.DestinationService;
 import com.travel.travel.services.UserService;
 import org.springframework.web.bind.annotation.PutMapping;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class TravelController {
@@ -30,7 +32,7 @@ public class TravelController {
     }
 
     @PostMapping("/destinations")
-    public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
+    public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) throws HappyTravelException {
         destinationService.addNewDestination(destination);
         return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
@@ -67,7 +69,13 @@ public class TravelController {
     }
 
     @GetMapping("/destinations/details/{id}")
-    public Optional<Destination> getDestinationDetails(@PathVariable int id) {
-        return destinationService.getDestinationDetails(id);
+    public ResponseEntity<Object> getDestinationDetails(@PathVariable int id) throws HappyTravelException{
+        try {
+            Optional<Destination> destination = destinationService.getDestinationDetails(id);
+            return new ResponseEntity<>(destination, HttpStatus.OK);
+        } catch (HappyTravelException e) {
+            // Si se lanza la excepción, devolvemos un 404 con el mensaje de error
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }
