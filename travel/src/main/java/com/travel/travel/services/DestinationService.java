@@ -66,7 +66,7 @@ public class DestinationService {
 
         List<Destination> destinationList = destinationRepository.findAll();
         if (destinationList == null || destinationList.size() == 0) {
-            throw new HappyTravelException("destination table is empty" );
+            throw new HappyTravelException("La tabla destinos esta vacia" );
         }
         return destinationList;
     
