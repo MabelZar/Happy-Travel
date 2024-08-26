@@ -26,7 +26,7 @@ public class DestinationService {
         this.destinationRepository = destinationRepository;
     }
     // ADDNEWDESTINATION TENDRÁ CONFLICTOS YA QUE TUVE QUE CAMBIARLA PARA MANEJAR LA EXCEPCIÓN
-    public void addNewDestination(Destination destination) {
+    public void addNewDestination(Destination destination) throws InvalidDataException, DuplicatedDestinationException{
 
         // Validación de que el título no sea nulo o esté vacío
     if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
