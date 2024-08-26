@@ -30,7 +30,6 @@ public class Destination {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
-    // Getters and setters
 
     public String getTitle() {
         return title;

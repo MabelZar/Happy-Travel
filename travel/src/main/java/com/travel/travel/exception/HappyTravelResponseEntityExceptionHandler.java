@@ -19,32 +19,26 @@ public class HappyTravelResponseEntityExceptionHandler extends ResponseEntityExc
         if (httpStatus == null) {
             httpStatus = HttpStatus.NOT_FOUND;
         }
-
         BodyErrorMessage bodyErrorMessage = new BodyErrorMessage();
         bodyErrorMessage.setHttpStatus(httpStatus.value());
         bodyErrorMessage.setMessage(exception.getMessage());
-
         return ResponseEntity.status(httpStatus).body(bodyErrorMessage);
 
     }
 
-    @ExceptionHandler(DataAccessException.class) // Error global que solo se indica aquí
-   // @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<BodyErrorMessage> manejarErrorDeConexion(DataAccessException ex) {
         BodyErrorMessage response = new BodyErrorMessage();
         response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.setMessage("Error de conexión con la base de datos: " + ex.getMessage()); //Por eso el mensaje se pone aquí
-        
+        response.setMessage("Error de conexión con la base de datos: " + ex.getMessage()); 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(Exception.class) // Error global
-    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<BodyErrorMessage> handleGeneralException(Exception ex){
         BodyErrorMessage message = new BodyErrorMessage();
         message.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         message.setMessage("Error inesperado " + ex.getMessage());
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
     }
 

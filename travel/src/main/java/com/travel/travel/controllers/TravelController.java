@@ -54,10 +54,6 @@ public class TravelController {
         return userService.addNewUser(user);
     }
 
-    // @GetMapping("/destinations")
-    // public List<Destination> getLocation(){
-    // return destinationService.getLocation();
-    // }----------------este es el original
     @GetMapping("/destinations")
     public List<Destination> getLocation() throws HappyTravelException {
         return destinationService.getLocation();
@@ -74,7 +70,6 @@ public class TravelController {
             Optional<Destination> destination = destinationService.getDestinationDetails(id);
             return new ResponseEntity<>(destination, HttpStatus.OK);
         } catch (HappyTravelException e) {
-            // Si se lanza la excepción, devolvemos un 404 con el mensaje de error
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
