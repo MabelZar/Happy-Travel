@@ -44,7 +44,7 @@ public class TravelController {
     }
 
     @PostMapping("/auth/sign_in")
-    public ResponseEntity<?> signIn(@RequestBody User user) throws handleHappyTravelException {
+    public ResponseEntity<?> signIn(@RequestBody User user) throws HappyTravelException{
 
         /* if (user.getEmail() == null || user.getPassword() == null) {
             return ResponseEntity.badRequest().body("Email and password are required.");

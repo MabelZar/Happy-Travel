@@ -29,7 +29,7 @@ public class HappyTravelResponseEntityExceptionHandler extends ResponseEntityExc
     }
 
     @ExceptionHandler(DataAccessException.class) // Error global que solo se indica aquí
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+   // @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<BodyErrorMessage> manejarErrorDeConexion(DataAccessException ex) {
         BodyErrorMessage response = new BodyErrorMessage();
         response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
