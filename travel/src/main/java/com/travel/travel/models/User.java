@@ -24,6 +24,8 @@ public class User {
     @Column(name = "password", length = 10, nullable = false)
     private String password;
 
+    private String token;
+
     public User(){}
 
     public int getId() {
@@ -58,5 +60,14 @@ public class User {
         this.email = email;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    
    
 }
