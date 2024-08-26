@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.travel.travel.dto.BodyErrorMessage;
@@ -13,14 +12,18 @@ import com.travel.travel.dto.BodyErrorMessage;
 public class HappyTravelResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(HappyTravelException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<BodyErrorMessage> handleHappyTravelException(HappyTravelException exception) {
-        
+
+        HttpStatus httpStatus = exception.getHttpStatus();
+        if (httpStatus == null) {
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+
         BodyErrorMessage bodyErrorMessage = new BodyErrorMessage();
-        bodyErrorMessage.setHttpStatus(HttpStatus.NOT_FOUND.value());
+        bodyErrorMessage.setHttpStatus(httpStatus.value());
         bodyErrorMessage.setMessage(exception.getMessage());
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(bodyErrorMessage);
+        return ResponseEntity.status(httpStatus).body(bodyErrorMessage);
 
     }
 

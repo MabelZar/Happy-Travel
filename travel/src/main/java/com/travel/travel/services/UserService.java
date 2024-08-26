@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.travel.travel.exception.HappyTravelException;
 import com.travel.travel.models.User;
 import com.travel.travel.repositories.UserRepository;
 
@@ -17,9 +18,9 @@ public class UserService {
 
     }
 
-        public ResponseEntity<Object> addNewUser(User user){
+        public ResponseEntity<Object> addNewUser(User user) throws HappyTravelException{
             if(userRepository.existsByEmail(user.getEmail())) {
-                return new ResponseEntity<>("Este usuario ya se encuentra registrado", HttpStatus.CREATED);
+                throw new HappyTravelException("No se registró, porque el email ya está siendo utilizado.", HttpStatus.CONFLICT);
             }
 
             userRepository.save(user);

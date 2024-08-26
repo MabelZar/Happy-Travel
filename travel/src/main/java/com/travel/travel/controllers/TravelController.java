@@ -45,7 +45,7 @@ public class TravelController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Object> addNewUser(@RequestBody User user) {
+    public ResponseEntity<Object> addNewUser(@RequestBody User user) throws HappyTravelException {
         return userService.addNewUser(user);
     }
 
@@ -54,9 +54,8 @@ public class TravelController {
             return destinationService.getLocation();
         }
 
-
     @DeleteMapping("/destinations/{id}")
-    public ResponseEntity<Object> deleteDestination(@PathVariable int id) {
+    public ResponseEntity<Object> deleteDestination(@PathVariable int id) throws HappyTravelException{
         return destinationService.deleteDestination(id);
     }
 
