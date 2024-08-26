@@ -35,7 +35,7 @@ public class LoginController {
             finalUser = user.get();
             finalUser.setToken(token);
         } else {
-            throw new IOException("FALLO AL AUTHENTICAR");
+            throw new IOException("FAIL Authentication");
         }
 
         return finalUser;
