@@ -2,10 +2,12 @@ package com.travel.travel.controllers;
 
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travel.travel.exception.HappyTravelException;
 import com.travel.travel.models.LoginRequest;
 import com.travel.travel.models.User;
 import com.travel.travel.security.JWTAuthtenticationConfig;
@@ -14,13 +16,13 @@ import com.travel.travel.services.UserService;
 import io.jsonwebtoken.io.IOException;
 
 @RestController
-public class LoginController {
+public class UserController {
 
     JWTAuthtenticationConfig jwtAuthtenticationConfig = new JWTAuthtenticationConfig();
 
     UserService userService;
 
-    public LoginController( UserService userService) {
+    public UserController( UserService userService) {
         this.userService = userService;
     }
 
@@ -39,6 +41,10 @@ public class LoginController {
         }
 
         return finalUser;
-    
+    }
+
+     @PostMapping("/auth/sign_in")
+    public ResponseEntity<?> signIn(@RequestBody User user) throws HappyTravelException{
+        return userService.addNewUser(user);
     }
 }

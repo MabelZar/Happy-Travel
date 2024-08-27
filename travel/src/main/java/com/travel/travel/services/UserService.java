@@ -7,17 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.travel.travel.exception.HappyTravelException;
+import com.travel.travel.models.Role;
 import com.travel.travel.models.User;
+import com.travel.travel.repositories.RoleRepository;
 import com.travel.travel.repositories.UserRepository;
 
 @Service
 public class UserService {
     
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, RoleRepository roleRepository){
         this.userRepository = userRepository;
-
+        this.roleRepository = roleRepository;
     }
 
         public ResponseEntity<Object> addNewUser(User user) throws HappyTravelException{
@@ -25,7 +28,14 @@ public class UserService {
                 throw new HappyTravelException("No se registró, porque el email ya está siendo utilizado.", HttpStatus.CONFLICT);
             }
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        
+        Role defaultRole = roleRepository.findByName("USER")
+        .orElseThrow(() -> new RuntimeException("Default role not found"));
+
+        savedUser.getRoles().add(defaultRole);
+        userRepository.save(savedUser);
         return new ResponseEntity<>("El usuario se ha registrado con exito!", HttpStatus.CREATED);
     } 
 
