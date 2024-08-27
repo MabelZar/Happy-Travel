@@ -24,7 +24,15 @@ public class DestinationService {
         this.destinationRepository = destinationRepository;
     }
 
-    public ResponseEntity<Object> addNewDestination(Destination destination) {
+    public void addNewDestination(Destination destination) throws HappyTravelException{
+
+    if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
+        throw new HappyTravelException("El título del destino no puede estar vacío.", HttpStatus.BAD_REQUEST);
+    }
+
+    if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
+        throw new HappyTravelException("La ubicación del destino no puede estar vacía.", HttpStatus.BAD_REQUEST);
+    }
 
         User user = destination.getUser();
 
@@ -34,10 +42,9 @@ public class DestinationService {
                 user);
 
         if (existingDestination.isPresent()) {
-            return new ResponseEntity<>("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
+            throw new HappyTravelException("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
         }
         destinationRepository.save(destination);
-        return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
 
     public Optional<Destination> findByTitleAndLocationAndUser(String title, String location, User user) {
@@ -50,7 +57,6 @@ public class DestinationService {
             Optional<Destination> existingDestination = destinationRepository.findById(destination.getId());
         
             if (!existingDestination.isPresent()) {
-                // Si el destino no existe, lanzamos una excepción personalizada
                 throw new HappyTravelException("El destino con ID " + destination.getId() + " no fue encontrado.");
             }
 
@@ -62,34 +68,36 @@ public class DestinationService {
 
     }
 
-    // public List<Destination> getLocation() {
-    // return destinationRepository.findAll();
-    // }este es el original
     public List<Destination> getLocation() throws HappyTravelException {
 
         List<Destination> destinationList = destinationRepository.findAll();
         if (destinationList == null || destinationList.size() == 0) {
-            throw new HappyTravelException("destination table is empty");
+            throw new HappyTravelException("La tabla destinos esta vacia" );
         }
         return destinationList;
     
     }
 
-    public ResponseEntity<Object> deleteDestination(int id) {
+    public ResponseEntity<Object> deleteDestination(int id) throws HappyTravelException {
         Optional<Destination> destinationOptional = destinationRepository.findById(id);
         {
             if (!destinationOptional.isPresent()) {
-                return new ResponseEntity<>("Este destino no es valido", HttpStatus.CONFLICT);
+                throw new HappyTravelException("Este destino no es valido", HttpStatus.CONFLICT);
             }
             destinationRepository.deleteById(id);
-            return new ResponseEntity<>("El usuario ha sido eliminado con exito!", HttpStatus.OK);
+            return new ResponseEntity<>("Ha sido eliminado con exito!", HttpStatus.OK);
 
         }
 
     }
 
-    public Optional<Destination> getDestinationDetails(int id) {
-        return destinationRepository.findById(id);
+    public Optional<Destination> getDestinationDetails(int id) throws HappyTravelException{
+        Optional<Destination> destinationDetails = destinationRepository.findById(id);
+        if(!destinationDetails.isPresent()){
+            throw new HappyTravelException("El id de destino: " + id + " no fue encontrado");
+        }
+        return destinationDetails;
+        
     }
 
 }
