@@ -1,7 +1,5 @@
 package com.travel.travel.dto;
 
-//import org.springframework.http.HttpStatus;
-
 public class BodyErrorMessage {
     private int httpStatus;
     private String message;

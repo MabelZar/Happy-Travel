@@ -3,6 +3,7 @@ package com.travel.travel.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +32,9 @@ public class TravelController {
     }
 
     @PostMapping("/destinations")
-    public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) {
-        return destinationService.addNewDestination(destination);
+    public ResponseEntity<Object> addNeWDestination(@RequestBody Destination destination) throws HappyTravelException {
+        destinationService.addNewDestination(destination);
+        return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
 
     @PutMapping("/destinations/update")
@@ -44,7 +46,7 @@ public class TravelController {
     }
 
     @PostMapping("/auth/sign_in")
-    public ResponseEntity<?> signIn(@RequestBody User user) {
+    public ResponseEntity<?> signIn(@RequestBody User user) throws HappyTravelException{
 
         /* if (user.getEmail() == null || user.getPassword() == null) {
             return ResponseEntity.badRequest().body("Email and password are required.");
@@ -58,12 +60,17 @@ public class TravelController {
     }
 
     @DeleteMapping("/destinations/{id}")
-    public ResponseEntity<Object> deleteDestination(@PathVariable int id) {
+    public ResponseEntity<Object> deleteDestination(@PathVariable int id) throws HappyTravelException{
         return destinationService.deleteDestination(id);
     }
 
     @GetMapping("/destinations/details/{id}")
-    public Optional<Destination> getDestinationDetails(@PathVariable int id) {
-        return destinationService.getDestinationDetails(id);
+    public ResponseEntity<Object> getDestinationDetails(@PathVariable int id) throws HappyTravelException{
+        try {
+            Optional<Destination> destination = destinationService.getDestinationDetails(id);
+            return new ResponseEntity<>(destination, HttpStatus.OK);
+        } catch (HappyTravelException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 }
