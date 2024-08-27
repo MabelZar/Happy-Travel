@@ -68,6 +68,4 @@ public class User {
         this.token = token;
     }
 
-    
-   
 }
