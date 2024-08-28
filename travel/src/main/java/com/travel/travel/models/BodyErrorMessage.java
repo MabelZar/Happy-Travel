@@ -1,4 +1,4 @@
-package com.travel.travel.dto;
+package com.travel.travel.models;
 
 public class BodyErrorMessage {
     private int httpStatus;
