@@ -1,4 +1,6 @@
-package com.travel.travel.security;
+package com.travel.travel.config.security;
+
+import static com.travel.travel.config.security.ConstansSecurity.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -11,8 +13,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-
-import static com.travel.travel.security.ConstansSecurity.*;
 
 @Configuration
 public class JWTAuthtenticationConfig {

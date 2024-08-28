@@ -1,4 +1,4 @@
-package com.travel.travel.models;
+package com.travel.travel.models.entity;
 
 public class LoginRequest {
     

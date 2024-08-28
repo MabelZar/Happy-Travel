@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import com.travel.travel.exception.HappyTravelException;
-import com.travel.travel.models.Destination;
-import com.travel.travel.models.User;
+import com.travel.travel.models.entity.Destination;
+import com.travel.travel.models.entity.User;
 import com.travel.travel.repositories.DestinationRepository;
 
 @Service
@@ -29,9 +29,9 @@ public class DestinationService {
         throw new HappyTravelException("El título del destino no puede estar vacío.", HttpStatus.BAD_REQUEST);
     }
 
-    if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
-        throw new HappyTravelException("La ubicación del destino no puede estar vacía.", HttpStatus.BAD_REQUEST);
-    }
+        if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
+            throw new HappyTravelException("La ubicación del destino no puede estar vacía.", HttpStatus.BAD_REQUEST);
+        }
 
     // Fetch the user from the database
     User user = destination.getUser();
@@ -96,15 +96,11 @@ public class DestinationService {
 
     public ResponseEntity<Object> deleteDestination(int id) throws HappyTravelException {
         Optional<Destination> destinationOptional = destinationRepository.findById(id);
-        {
-            if (!destinationOptional.isPresent()) {
-                throw new HappyTravelException("Este destino no es valido", HttpStatus.CONFLICT);
-            }
-            destinationRepository.deleteById(id);
-            return new ResponseEntity<>("Ha sido eliminado con exito!", HttpStatus.OK);
-
+        if (!destinationOptional.isPresent()) {
+            throw new HappyTravelException("Este destino no es valido", HttpStatus.CONFLICT);
         }
-
+        destinationRepository.deleteById(id);
+        return new ResponseEntity<>("Ha sido eliminado con exito!", HttpStatus.OK);
     }
 
     public Optional<Destination> getDestinationDetails(int id) throws HappyTravelException{
