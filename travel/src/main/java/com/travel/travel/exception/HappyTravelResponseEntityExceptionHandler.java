@@ -1,9 +1,7 @@
 package com.travel.travel.exception;
 
 import java.nio.file.AccessDeniedException;
-
 import javax.naming.AuthenticationException;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,15 +1,12 @@
 package com.travel.travel.services;
 
 import java.util.Optional;
-
 import java.util.List;
-
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
-
 import com.travel.travel.exception.HappyTravelException;
 import com.travel.travel.models.Destination;
 import com.travel.travel.models.User;

@@ -5,13 +5,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -46,16 +44,23 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}
 
 	private void setAuthentication(Claims claims) {
+        Object authoritiesObj = claims.get("authorities");
+		List<String> authorities = null;
 
-		List<String> authorities = (List<String>) claims.get("authorities");
+        if (authoritiesObj instanceof List<?>) {
+            authorities = ((List<?>) authoritiesObj).stream()
+                            .filter(String.class::isInstance)
+                            .map(String.class::cast)
+                            .collect(Collectors.toList());
+        }
 
-		UsernamePasswordAuthenticationToken auth =
+        if(authorities != null){
+            UsernamePasswordAuthenticationToken auth =
 				new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
 				authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-
-		SecurityContextHolder.getContext().setAuthentication(auth);
-
-	}
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        }
 
 	private boolean isJWTValid(HttpServletRequest request, HttpServletResponse res) {
 		String authenticationHeader = request.getHeader(HEADER_AUTHORIZACION_KEY);
@@ -65,6 +70,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}
 
 	@Override
+    @SuppressWarnings("null")
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		try {
 			if (isJWTValid(request, response)) {

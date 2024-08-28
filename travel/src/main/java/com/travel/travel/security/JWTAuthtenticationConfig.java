@@ -12,7 +12,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
-
 import static com.travel.travel.security.ConstansSecurity.*;
 
 @Configuration

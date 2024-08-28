@@ -13,11 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.travel.travel.security.JWTAuthorizationFilter;
 
-
-
+import static com.travel.travel.security.ConstansSecurity.*;
 
 @EnableWebSecurity
 @Configuration
@@ -36,15 +34,14 @@ class SecurityConfig{
         http
             .cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
             .authorizeHttpRequests( authz -> authz
-                    .requestMatchers(HttpMethod.POST,"/auth/log_in").permitAll()
-                    .requestMatchers(HttpMethod.POST,"/auth/sign_in").permitAll()
-                    .requestMatchers(HttpMethod.POST,"/auth/destinations").permitAll()
-                    .requestMatchers(HttpMethod.POST,"/api/destinations/add").authenticated()
-                    .requestMatchers(HttpMethod.PUT,"/api/destinations/update").authenticated()
-                    .requestMatchers(HttpMethod.GET,"/api/destinations/location").authenticated()
-                    .requestMatchers(HttpMethod.DELETE,"/api/destinations/delete/{id}").authenticated()
-                    .requestMatchers(HttpMethod.GET,"/api/destinations/details/{id}").authenticated()
-                    //.requestMatchers(HttpMethod.GET,"/api/destinations/details/{id}").hasAuthority("ADMIN").anyRequest().authenticated()
+                    .requestMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+                    .requestMatchers(HttpMethod.POST, SIGNIN_URL).permitAll()
+                    .requestMatchers(HttpMethod.POST, DESTINATIONS_URL).permitAll()
+                    .requestMatchers(HttpMethod.POST, DESTINATIONS_ADD_URL).authenticated()
+                    .requestMatchers(HttpMethod.PUT, DESTINATIONS_UPDATE_URL).authenticated()
+                    .requestMatchers(HttpMethod.GET, DESTINATIONS_LOCATION_URL).authenticated()
+                    .requestMatchers(HttpMethod.DELETE, DESTINATIONS_DELETE_URL).authenticated()
+                    .requestMatchers(HttpMethod.GET,DESTINATIONS_DETAILS_URL).authenticated()
             ).addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -60,7 +57,7 @@ class SecurityConfig{
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins(LOCALHOST_FRONT_URL)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
