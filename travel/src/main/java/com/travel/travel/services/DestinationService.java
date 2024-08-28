@@ -16,52 +16,52 @@ import com.travel.travel.repositories.DestinationRepository;
 public class DestinationService {
 
     private final DestinationRepository destinationRepository;
+    private final UserService userService;
 
-    public DestinationService(DestinationRepository destinationRepository) {
+    public DestinationService(DestinationRepository destinationRepository, UserService userService) {
         this.destinationRepository = destinationRepository;
+        this.userService = userService;
     }
 
-    public void addNewDestination(Destination destination) throws HappyTravelException{
-
-        if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
-            throw new HappyTravelException("El título del destino no puede estar vacío.", HttpStatus.BAD_REQUEST);
-        }
+    public void addNewDestination(Destination destination) throws HappyTravelException {
+    // Validation
+    if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
+        throw new HappyTravelException("El título del destino no puede estar vacío.", HttpStatus.BAD_REQUEST);
+    }
 
         if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
             throw new HappyTravelException("La ubicación del destino no puede estar vacía.", HttpStatus.BAD_REQUEST);
         }
 
-        User user = destination.getUser();
+    // Fetch the user from the database
+    User user = destination.getUser();
 
-        Optional<Destination> existingDestination = destinationRepository.findByTitleAndLocationAndUser(
-                destination.getTitle(),
-                destination.getLocation(),
-                user);
-
-        if (existingDestination.isPresent()) {
-            throw new HappyTravelException("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
-        }
-        destinationRepository.save(destination);
-    }
-    /*if (destination.getTitle() == null || destination.getTitle().isEmpty()) {
-        throw new HappyTravelException("El título del destino no puede estar vacío.", HttpStatus.BAD_REQUEST);
+    if (user == null ||!user.isIdSet()) {
+        throw new HappyTravelException("Usuario no especificado.", HttpStatus.BAD_REQUEST);
     }
 
-    if (destination.getLocation() == null || destination.getLocation().isEmpty()) {
-        throw new HappyTravelException("La ubicación del destino no puede estar vacía.", HttpStatus.BAD_REQUEST);
+    User existingUser = userService.getUserById(user.getId());
+    if (existingUser == null) {
+        throw new HappyTravelException("Usuario no encontrado.", HttpStatus.NOT_FOUND);
+    }
+    
+    // Set the fetched user to the destination
+    destination.setUser(existingUser);
+
+    // Check for existing destination
+    Optional<Destination> existingDestination = destinationRepository.findByTitleAndLocationAndUser(
+            destination.getTitle(),
+            destination.getLocation(),
+            existingUser);
+
+    if (existingDestination.isPresent()) {
+        throw new HappyTravelException("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
     }
 
-        User user = destination.getUser();
+    
+    destinationRepository.save(destination);
 
-        Optional<Destination> existingDestination = destinationRepository.findByTitleAndLocationAndUser(
-                destination.getTitle(),
-                destination.getLocation(),
-                user);
-
-        if (existingDestination.isPresent()) {
-            throw new HappyTravelException("El destino con el mismo título y ubicación ya existe.", HttpStatus.CONFLICT);
-        }
-        destinationRepository.save(destination);*/
+}
 
     public Optional<Destination> findByTitleAndLocationAndUser(String title, String location, User user) {
         return destinationRepository.findByTitleAndLocationAndUser(title, location, user);
