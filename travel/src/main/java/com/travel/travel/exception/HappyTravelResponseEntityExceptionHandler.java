@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.travel.travel.dto.BodyErrorMessage;
+import com.travel.travel.models.BodyErrorMessage;
 
 @ControllerAdvice
 public class HappyTravelResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {

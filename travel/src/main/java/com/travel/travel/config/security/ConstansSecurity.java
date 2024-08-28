@@ -1,4 +1,4 @@
-package com.travel.travel.security;
+package com.travel.travel.config.security;
 
 public class ConstansSecurity {
 

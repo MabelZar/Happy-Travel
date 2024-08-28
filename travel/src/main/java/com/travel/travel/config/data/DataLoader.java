@@ -1,8 +1,9 @@
-package com.travel.travel.config;
+package com.travel.travel.config.data;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import com.travel.travel.models.Role;
+
+import com.travel.travel.models.entity.Role;
 import com.travel.travel.repositories.RoleRepository;
 
 @Component

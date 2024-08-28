@@ -1,4 +1,6 @@
-package com.travel.travel.config;
+package com.travel.travel.config.security;
+import static com.travel.travel.config.security.ConstansSecurity.*;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,9 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import com.travel.travel.security.JWTAuthorizationFilter;
-
-import static com.travel.travel.security.ConstansSecurity.*;
 
 @EnableWebSecurity
 @Configuration

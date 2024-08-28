@@ -1,4 +1,6 @@
-package com.travel.travel.security;
+package com.travel.travel.config.security;
+
+import static com.travel.travel.config.security.ConstansSecurity.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -20,8 +22,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import static com.travel.travel.security.ConstansSecurity.*;
 
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
