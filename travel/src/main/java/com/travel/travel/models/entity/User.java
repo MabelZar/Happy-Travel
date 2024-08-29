@@ -92,9 +92,8 @@ public class User {
         this.roles = roles;
     }
 
-    // Check if ID is set
     public boolean isIdSet() {
-        return id > 0; // or use another sentinel value
+        return id > 0; 
     }
 
 }
