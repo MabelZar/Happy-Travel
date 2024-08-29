@@ -31,31 +31,35 @@ public class DestinationsController {
     }
 
     @PostMapping(DESTINATIONS_ADD_URL)
-    public ResponseEntity<DestinationDTO> addNeWDestination(@RequestBody Destination destination) throws HappyTravelException {
+    public ResponseEntity<DestinationDTO> addNeWDestination(@RequestBody Destination destination)
+            throws HappyTravelException {
         destinationService.addNewDestination(destination);
         DestinationDTO resultDTO = EntityToDTOMapper.convertToDestinationDTO(destination);
         return new ResponseEntity<>(resultDTO, HttpStatus.CREATED);
     }
 
     @PutMapping(DESTINATIONS_UPDATE_URL)
-    public ResponseEntity<Object> updateDestination(@RequestBody Destination destination) throws HappyTravelException {
-
+    public ResponseEntity<Object> updateDestination(@PathVariable int id, @RequestBody Destination destination)
+            throws HappyTravelException {
+        destination.setId(id); 
         destinationService.updateDestination(destination);
-
         return ResponseEntity.ok().build();
     }
+
 
     @GetMapping(DESTINATIONS_URL)
     public List<DestinationDTO> getLocationPublic() throws HappyTravelException {
         List<Destination> destinations = destinationService.getLocation();
-        List<DestinationDTO> destinationsDto = destinations.stream().map(EntityToDTOMapper::convertToDestinationDTO).collect(Collectors.toList());
+        List<DestinationDTO> destinationsDto = destinations.stream().map(EntityToDTOMapper::convertToDestinationDTO)
+                .collect(Collectors.toList());
         return destinationsDto;
     }
 
     @GetMapping(DESTINATIONS_LOCATION_URL)
     public List<DestinationDTO> getLocation() throws HappyTravelException {
         List<Destination> destinations = destinationService.getLocation();
-        List<DestinationDTO> destinationsDto = destinations.stream().map(EntityToDTOMapper::convertToDestinationDTO).collect(Collectors.toList());
+        List<DestinationDTO> destinationsDto = destinations.stream().map(EntityToDTOMapper::convertToDestinationDTO)
+                .collect(Collectors.toList());
         return destinationsDto;
     }
 
