@@ -94,6 +94,14 @@ public class DestinationService {
     
     }
 
+    public List<Destination> getLocationPublic() throws HappyTravelException {
+        List<Destination> destinationList = destinationRepository.findAll();
+        if (destinationList == null || destinationList.size() == 0) {
+            throw new HappyTravelException("La tabla destinos esta vacia" );
+        }
+        return destinationList;
+    }
+
     public ResponseEntity<Object> deleteDestination(int id) throws HappyTravelException {
         Optional<Destination> destinationOptional = destinationRepository.findById(id);
         if (!destinationOptional.isPresent()) {

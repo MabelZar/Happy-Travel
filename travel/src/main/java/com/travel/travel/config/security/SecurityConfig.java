@@ -35,7 +35,7 @@ class SecurityConfig{
             .authorizeHttpRequests( authz -> authz
                     .requestMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
                     .requestMatchers(HttpMethod.POST, SIGNIN_URL).permitAll()
-                    .requestMatchers(HttpMethod.POST, DESTINATIONS_URL).permitAll()
+                    .requestMatchers(HttpMethod.GET, DESTINATIONS_URL).permitAll()
                     .requestMatchers(HttpMethod.POST, DESTINATIONS_ADD_URL).authenticated()
                     .requestMatchers(HttpMethod.PUT, DESTINATIONS_UPDATE_URL).authenticated()
                     .requestMatchers(HttpMethod.GET, DESTINATIONS_LOCATION_URL).authenticated()
