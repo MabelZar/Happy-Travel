@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Windows shortcuts
+*.lnk
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+src/main/resources/database.properties
+src/main/java/travel/travel/security/ConstansSecurity.java
+.DS_Store
