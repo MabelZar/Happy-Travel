@@ -45,6 +45,13 @@ public class DestinationsController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping(DESTINATIONS_URL)
+    public List<DestinationDTO> getLocationPublic() throws HappyTravelException {
+        List<Destination> destinations = destinationService.getLocation();
+        List<DestinationDTO> destinationsDto = destinations.stream().map(EntityToDTOMapper::convertToDestinationDTO).collect(Collectors.toList());
+        return destinationsDto;
+    }
+
     @GetMapping(DESTINATIONS_LOCATION_URL)
     public List<DestinationDTO> getLocation() throws HappyTravelException {
         List<Destination> destinations = destinationService.getLocation();

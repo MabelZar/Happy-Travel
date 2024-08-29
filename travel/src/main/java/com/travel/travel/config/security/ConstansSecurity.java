@@ -5,7 +5,7 @@ public class ConstansSecurity {
     //Spring Secutiry
     public static final String LOGIN_URL = "/auth/log_in";
     public static final String SIGNIN_URL = "/auth/sign_in";
-    public static final String DESTINATIONS_URL = "/auth/destinations";
+    public static final String DESTINATIONS_URL = "/auth/destinations/location";
     public static final String DESTINATIONS_ADD_URL = "/api/destinations/add";
     public static final String DESTINATIONS_UPDATE_URL = "/api/destinations/update";
     public static final String DESTINATIONS_LOCATION_URL = "/api/destinations/location";
