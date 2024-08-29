@@ -1,4 +1,4 @@
-package com.travel.travel.models;
+package com.travel.travel.models.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -78,8 +78,4 @@ public class Destination {
     public void setLocation(String location) {
         this.location = location;
     }
-    //public void setId_user(int id_user) {
-       // this.id_user = id_user;
-    //}
-
 }
